@@ -1,5 +1,4 @@
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     /* ══════════════════════════════════════════════════════════════
        TOKENS DE MARCA
@@ -592,14 +591,27 @@
     }
 
     /* ─── TEMPORADA ─── */
-    #temporada { background: var(--bg); }
-
-    .temporada-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 5rem;
-      align-items: stretch;
+    /* La etiqueta de La Diabla es el fondo de la sección: el degradado la
+       funde con el texto en vez de dejarla como una foto aparte al lado. */
+    #temporada {
+      position: relative;
+      min-height: 680px;
+      display: flex;
+      align-items: center;
+      background: url(../assets/images/15776f40ef9b.webp) center/cover no-repeat;
+      overflow: hidden;
     }
+
+    #temporada::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(100deg, var(--bg) 0%, var(--bg) 42%, color-mix(in srgb, var(--bg) 55%, transparent) 66%, transparent 100%);
+    }
+
+    #temporada .container { position: relative; z-index: 1; width: 100%; }
+
+    .temporada-content { max-width: 620px; }
 
     .season-badge {
       display: inline-flex;
@@ -677,21 +689,6 @@
       text-transform: uppercase;
       letter-spacing: 2px;
       color: var(--muted);
-    }
-
-    /* visual de la etiqueta */
-    .bottle-wrap {
-      min-height: 380px;
-    }
-
-    .season-label-img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      border-radius: 24px;
-      box-shadow:
-        0 40px 100px -20px color-mix(in srgb, var(--diabla) 35%, transparent),
-        0 0 0 1px color-mix(in srgb, var(--diabla) 20%, transparent);
     }
 
     /* ─── NOSOTROS ─── */
@@ -1286,10 +1283,12 @@
         border-bottom: 1px solid rgba(255,255,255,.06);
       }
 
-      .temporada-grid,
       .nosotros-grid { grid-template-columns: 1fr; gap: 3rem; }
 
-      .bottle-wrap { order: -1; }
+      #temporada { min-height: 520px; }
+      #temporada::before {
+        background: linear-gradient(180deg, var(--bg) 0%, var(--bg) 55%, color-mix(in srgb, var(--bg) 55%, transparent) 78%, transparent 100%);
+      }
 
       .pack-cards { flex-direction: column; }
       .pack-card { max-width: none; }
@@ -1301,4 +1300,3 @@
       .footer-links { flex-wrap: wrap; gap: 1rem; }
       .footer-copy { text-align: left; }
     }
-  </style>
