@@ -175,9 +175,9 @@
     .hero-bg-slide.active { opacity: 1; }
 
     /* Fotos del hero incrustadas: el archivo funciona sin carpetas ni internet. */
-    .foto1 { background-image: url(assets/images/857410321ee2.webp); }
-    .foto2 { background-image: url(assets/images/91c1b13c0cf3.webp); }
-    .foto3 { background-image: url(assets/images/c84b5a892d56.webp); }
+    .foto1 { background-image: url(../assets/images/857410321ee2.webp); }
+    .foto2 { background-image: url(../assets/images/91c1b13c0cf3.webp); }
+    .foto3 { background-image: url(../assets/images/c84b5a892d56.webp); }
 
     /* scrim oscuro sobre la foto para legibilidad + glow sutil */
     #hero::before {
