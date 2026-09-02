@@ -186,7 +186,7 @@
      mode:'no-cors' y Content-Type:'text/plain;charset=utf-8'.
      ══════════════════════════════════════════════════════════════════ */
   var ENDPOINT_FORMULARIO = '';
-  var WA_NUMERO = '573506267136';
+  var WA_NUMERO = '573124735750';
 
   var form = document.getElementById('form-pedido');
   if (form) {
