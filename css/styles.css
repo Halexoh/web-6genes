@@ -1300,3 +1300,79 @@
       .footer-links { flex-wrap: wrap; gap: 1rem; }
       .footer-copy { text-align: left; }
     }
+/* ══════════════════════════════════════════════════════════════════════
+   ESTILO DEL BANNER DE CONSENTIMIENTO
+   "Aceptar" y "Rechazar" quedan con el mismo tamaño, mismo grosor de
+   borde y mismo peso de fuente — solo cambia el color de fondo — para
+   no inducir a la persona a aceptar por diseño.
+   ══════════════════════════════════════════════════════════════════════ */
+
+#consent-banner {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 9999;
+  background: #111111;
+  color: #ffffff;
+  padding: 1rem 1.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  font-family: 'Raleway', sans-serif;
+  font-size: 0.85rem;
+  line-height: 1.4;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+#consent-banner p {
+  margin: 0;
+  flex: 1 1 260px;
+  color: #cccccc;
+}
+
+.consent-botones {
+  display: flex;
+  gap: 0.75rem;
+  flex-shrink: 0;
+}
+
+.consent-botones button {
+  padding: 0.65rem 1.5rem;
+  border-radius: 999px;
+  border: 1px solid #ffffff;
+  font-family: 'Raleway', sans-serif;
+  font-weight: 700;
+  font-size: 0.8rem;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.consent-botones button:hover {
+  opacity: 0.85;
+}
+
+#consent-aceptar {
+  background: #ffffff;
+  color: #0a0a0a;
+}
+
+#consent-rechazar {
+  background: transparent;
+  color: #ffffff;
+}
+
+@media (max-width: 640px) {
+  #consent-banner {
+    flex-direction: column;
+    align-items: stretch;
+    text-align: center;
+  }
+  .consent-botones {
+    justify-content: center;
+  }
+}

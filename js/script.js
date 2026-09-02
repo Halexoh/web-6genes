@@ -373,3 +373,74 @@
       card.style.transition = 'transform .1s ease, box-shadow .3s';
     });
   });
+/* ══════════════════════════════════════════════════════════════════════
+   CONEXIÓN A GA4 — pégalo al FINAL de script.js
+   No toca el resto del archivo. Es el "lector" que menciona el
+   comentario de cabecera: solo carga gtag.js después de que la persona
+   acepte cookies. El dataLayer y los eventos propios del sitio se
+   siguen registrando igual, acepte o no — lo único que depende del
+   consentimiento es el envío a Google.
+   ══════════════════════════════════════════════════════════════════════ */
+
+(function () {
+  const GA_MEASUREMENT_ID = 'G-61QMXXR7FK'; // propiedad "6Genes Landing"
+  const CONSENT_KEY = '6genes_consent_analytics';
+
+  function cargarGA4() {
+    if (window.__ga4Cargado) return;
+    window.__ga4Cargado = true;
+
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = function () { window.dataLayer.push(arguments); };
+
+    window.gtag('js', new Date());
+    window.gtag('config', GA_MEASUREMENT_ID);
+
+    const script = document.createElement('script');
+    script.async = true;
+    script.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_MEASUREMENT_ID;
+    document.head.appendChild(script);
+  }
+
+  function mostrarBannerConsentimiento() {
+    const decision = localStorage.getItem(CONSENT_KEY);
+
+    if (decision === 'aceptado') {
+      cargarGA4();
+      return;
+    }
+    if (decision === 'rechazado') {
+      return; // no se muestra de nuevo; el dataLayer sigue vivo igual
+    }
+
+    const banner = document.createElement('div');
+    banner.id = 'consent-banner';
+    banner.setAttribute('role', 'dialog');
+    banner.setAttribute('aria-label', 'Aviso de cookies');
+    banner.innerHTML =
+      '<p>Usamos cookies para entender cómo llega la gente al sitio ' +
+      '(por ejemplo, desde Instagram) y mejorarlo. Puedes aceptar o rechazar.</p>' +
+      '<div class="consent-botones">' +
+      '<button id="consent-rechazar" type="button">Rechazar</button>' +
+      '<button id="consent-aceptar" type="button">Aceptar</button>' +
+      '</div>';
+    document.body.appendChild(banner);
+
+    document.getElementById('consent-aceptar').addEventListener('click', function () {
+      localStorage.setItem(CONSENT_KEY, 'aceptado');
+      banner.remove();
+      cargarGA4();
+    });
+
+    document.getElementById('consent-rechazar').addEventListener('click', function () {
+      localStorage.setItem(CONSENT_KEY, 'rechazado');
+      banner.remove();
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', mostrarBannerConsentimiento);
+  } else {
+    mostrarBannerConsentimiento();
+  }
+})();
